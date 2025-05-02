@@ -33,17 +33,18 @@ public class TodoController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = todo.Id }, todo);
     }
 
-    [HttpPut("{id}")]
-    public ActionResult Update(int id, TodoItem updatedTodo)
-    {
-        var todo = Todos.FirstOrDefault(t => t.Id == id);
-        if (todo == null) return NotFound();
-        
-        todo.Title = updatedTodo.Title;
-        todo.IsDone = updatedTodo.IsDone;
+   [HttpPut("{id}")]
+public ActionResult<TodoItem> Update(int id, TodoItem updatedTodo)
+{
+    var todo = Todos.FirstOrDefault(t => t.Id == id);
+    if (todo == null) return NotFound();
 
-        return NoContent();
-    }
+    todo.Title = updatedTodo.Title;
+    todo.IsDone = updatedTodo.IsDone;
+
+    return Ok(todo);
+}
+
 
     [HttpDelete("{id}")]
     public ActionResult Delete(int id)
